@@ -2,11 +2,17 @@ package glider.demo
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import gliderandroid.GliderSocketFactory
 import okhttp3.CacheControl
+import okhttp3.Dns
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.net.InetAddress
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
@@ -16,10 +22,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         thread {
+            val gliderUrl = "direct://"
             val client: OkHttpClient = OkHttpClient.Builder()
                 .retryOnConnectionFailure(false)
-                .socketFactory(GliderSocketFactory("--verbose -forward tls://api.ipify.org/"))
+                .socketFactory(GliderSocketFactory("-verbose -forward $gliderUrl -dialtimeout 10"))
                 .callTimeout(10, TimeUnit.SECONDS)
+                .dns {
+                    val address = gliderandroid.Gliderandroid.resolve(
+                        "-verbose $gliderUrl,doh://1.1.1.1 -dialtimeout 10",
+                        it,
+                        "8.8.8.8",
+                        53
+                    )
+                    arrayListOf(InetAddress.getByName(address))
+                }
                 .build()
 
             try {
@@ -27,13 +43,23 @@ class MainActivity : AppCompatActivity() {
                     Request.Builder()
                         .addHeader("Cache-Control", "no-cache")
                         .cacheControl(CacheControl.FORCE_NETWORK)
-                        .url("http://api.ipify.org/")
+                        .url("http://ip-api.com/json")
                         .build()
                 ).execute().body.string()
 
-                println(response)
-            } catch (e : Exception) {
+                val jsonObject = Gson().fromJson(response, JsonObject::class.java)
+
+                runOnUiThread {
+                    (findViewById<TextView>(R.id.text)).text =
+                        GsonBuilder().setPrettyPrinting().create().toJson(jsonObject)
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
                 Log.e(TAG, "error: ${e.message}")
+                runOnUiThread {
+                    (findViewById<TextView>(R.id.text)).text = e.message
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ module github.com/doorbash/glider-android
 go 1.19
 
 require (
+	github.com/doorbash/glider-custom-proxies v0.0.10
 	github.com/nadoo/conflag v0.3.1
 	github.com/nadoo/glider v0.16.2
 )

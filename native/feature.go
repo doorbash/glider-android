@@ -24,4 +24,6 @@ import (
 	_ "github.com/nadoo/glider/proxy/vless"
 	_ "github.com/nadoo/glider/proxy/vmess"
 	_ "github.com/nadoo/glider/proxy/ws"
+
+	_ "github.com/doorbash/glider-custom-proxies/doh"
 )

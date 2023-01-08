@@ -47,4 +47,5 @@ public abstract class Gliderandroid {
 	public static native String httpGet(String args, String url, long timeout) throws Exception;
 	// skipped function NewMyConn with unsupported parameter or return types
 	
+	public static native String resolve(String args, String domain, String addr, long port) throws Exception;
 }

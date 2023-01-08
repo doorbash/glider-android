@@ -34,7 +34,7 @@ public class Seq {
 	private static final GoRefQueue goRefQueue = new GoRefQueue();
 
 	static {
-		System.loadLibrary("glider");
+		System.loadLibrary("gojni");
 		init();
 		Universe.touch();
 	}

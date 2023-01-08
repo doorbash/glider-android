@@ -6,4 +6,12 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:textColor="#FFF"
+        android:textSize="22sp" />
+
 </RelativeLayout>
