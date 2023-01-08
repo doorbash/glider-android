@@ -16,8 +16,17 @@ dependencies {
 ```kotlin
 val client: OkHttpClient = OkHttpClient.Builder()
   .retryOnConnectionFailure(false)
-  .socketFactory(GliderSocketFactory("-forward tls://api.ipify.org/"))
+  .socketFactory(GliderSocketFactory("-forward tls://api.ipify.org/ -dialtimeout 10"))
   .callTimeout(10, TimeUnit.SECONDS)
+  .dns {
+    val address = gliderandroid.Gliderandroid.resolve(
+        "-verbose doh://1.1.1.1 -dialtimeout 10",
+        it,
+        "8.8.8.8",
+        53
+    )
+    arrayListOf(InetAddress.getByName(address))
+  }
   .build()
 
 try {
