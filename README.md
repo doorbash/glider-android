@@ -16,7 +16,7 @@ dependencies {
 ```kotlin
 val client: OkHttpClient = OkHttpClient.Builder()
   .retryOnConnectionFailure(false)
-  .socketFactory(GliderSocketFactory("--verbose -forward tls://api.ipify.org/"))
+  .socketFactory(GliderSocketFactory("-forward tls://api.ipify.org/"))
   .callTimeout(10, TimeUnit.SECONDS)
   .build()
 
