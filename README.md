@@ -1,6 +1,4 @@
-# Backend-Services-Android
-
-Android client for https://github.com/doorbash/backend-services
+# Glider-Android
 
 ## Download
 
