@@ -20,7 +20,7 @@ val client: OkHttpClient = OkHttpClient.Builder()
   .callTimeout(10, TimeUnit.SECONDS)
   .dns {
     val address = gliderandroid.Gliderandroid.resolve(
-        "-verbose doh://1.1.1.1 -dialtimeout 10",
+        "-verbose -forward doh://1.1.1.1 -dialtimeout 10",
         it,
         "8.8.8.8",
         53

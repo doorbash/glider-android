@@ -22,18 +22,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         thread {
-            val gliderUrl = "direct://"
             val client: OkHttpClient = OkHttpClient.Builder()
                 .retryOnConnectionFailure(false)
-                .socketFactory(GliderSocketFactory("-verbose -forward $gliderUrl -dialtimeout 10"))
-                .callTimeout(10, TimeUnit.SECONDS)
+                .socketFactory(GliderSocketFactory("-verbose -forward direct:// -dialtimeout 10"))
+                .callTimeout(20, TimeUnit.SECONDS)
                 .dns {
                     val address = gliderandroid.Gliderandroid.resolve(
-                        "-verbose $gliderUrl,doh://1.1.1.1 -dialtimeout 10",
+                        "-verbose -forward doh://1.1.1.1",
                         it,
                         "8.8.8.8",
                         53
                     )
+                    println("address: $address")
                     arrayListOf(InetAddress.getByName(address))
                 }
                 .build()

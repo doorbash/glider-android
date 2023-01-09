@@ -13,8 +13,8 @@ github.com/dgryski/go-idea v0.0.0-20170306091226-d2fb45a411fb h1:zXpN5126w/mhECT
 github.com/dgryski/go-idea v0.0.0-20170306091226-d2fb45a411fb/go.mod h1:F7WkpqJj9t98ePxB/WJGQTIDeOVPuSJ3qdn6JUjg170=
 github.com/dgryski/go-rc2 v0.0.0-20150621095337-8a9021637152 h1:ED31mPIxDJnrLt9W9dH5xgd/6KjzEACKHBVGQ33czc0=
 github.com/dgryski/go-rc2 v0.0.0-20150621095337-8a9021637152/go.mod h1:I9fhc/EvSg88cDxmfQ47v35Ssz9rlFunL/KY0A1JAYI=
-github.com/doorbash/glider-custom-proxies v0.0.10 h1:s524tJl6E+bM9RoeKi1p7q1BqjWgLPB70mGe3UovOp8=
-github.com/doorbash/glider-custom-proxies v0.0.10/go.mod h1:H0ueSUDeoJg7Qr7rMZFUUp3IDjfBTA0PowPwAWWMiNQ=
+github.com/doorbash/glider-custom-proxies v0.0.11 h1:pfUeOk3NcOEtFtfxXJmhxpk8WjjDOJXYIvZnNtmYl/Q=
+github.com/doorbash/glider-custom-proxies v0.0.11/go.mod h1:H0ueSUDeoJg7Qr7rMZFUUp3IDjfBTA0PowPwAWWMiNQ=
 github.com/ebfe/rc2 v0.0.0-20131011165748-24b9757f5521 h1:fBHFH+Y/GPGFGo7LIrErQc3p2MeAhoIQNgaxPWYsSxk=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
