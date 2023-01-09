@@ -8,9 +8,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import gliderandroid.GliderSocketFactory
+import gliderandroid.Gliderandroid
 import gliderandroid.toStringList
 import okhttp3.CacheControl
-import okhttp3.Dns
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.net.InetAddress
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 .socketFactory(GliderSocketFactory("-verbose -forward direct:// -dialtimeout 10"))
                 .callTimeout(20, TimeUnit.SECONDS)
                 .dns {
-                    val addresses = gliderandroid.Gliderandroid.resolve(
+                    val addresses = Gliderandroid.resolve(
                         "-verbose -forward doh://1.1.1.1",
                         it,
                         "8.8.8.8",
