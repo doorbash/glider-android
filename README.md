@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.doorbash:glider-android:1.0.0'
+    implementation 'com.github.doorbash:glider-android:1.0.2'
 }
 ```
 
@@ -20,7 +20,7 @@ val client: OkHttpClient = OkHttpClient.Builder()
   .callTimeout(10, TimeUnit.SECONDS)
   .dns {
     val address = gliderandroid.Gliderandroid.resolve(
-        "-verbose -forward doh://1.1.1.1 -dialtimeout 10",
+        "-verbose -forward doh://1.1.1.1",
         it,
         "8.8.8.8",
         53
