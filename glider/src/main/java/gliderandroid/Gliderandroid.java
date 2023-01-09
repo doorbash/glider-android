@@ -41,11 +41,25 @@ public abstract class Gliderandroid {
 		public native long write(byte[] b) throws Exception;
 		public native long writeOffLen(byte[] b, long off, long len) throws Exception;
 	}
+	private static final class proxyStringCollection implements Seq.Proxy, StringCollection {
+		private final int refnum;
+		
+		@Override public final int incRefnum() {
+		      Seq.incGoRef(refnum, this);
+		      return refnum;
+		}
+		
+		proxyStringCollection(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
+		
+		public native StringCollection add(String s);
+		public native String get(long i);
+		public native long size();
+	}
 	
 	
 	public static native MyConnI dial(String args, String addr) throws Exception;
 	public static native String httpGet(String args, String url, long timeout) throws Exception;
 	// skipped function NewMyConn with unsupported parameter or return types
 	
-	public static native String resolve(String args, String domain, String addr, long port) throws Exception;
+	public static native StringArray resolve(String args, String domain, String addr, long port) throws Exception;
 }

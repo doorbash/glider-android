@@ -2,7 +2,6 @@ package gliderandroid
 
 import (
 	"context"
-	"errors"
 	"io"
 	"net"
 	"net/http"
@@ -66,7 +65,7 @@ func HttpGet(args string, url string, timeout int) (string, error) {
 	return string(b), nil
 }
 
-func Resolve(args string, domain string, addr string, port int) (string, error) {
+func Resolve(args string, domain string, addr string, port int) (*StringArray, error) {
 	config := parseConfig(strings.Fields(args))
 
 	p := rule.NewProxy(config.Forwards, &config.Strategy, config.rules)
@@ -96,15 +95,12 @@ func Resolve(args string, domain string, addr string, port int) (string, error) 
 		},
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	result, err := resolver.LookupHost(ctx, domain)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	if len(result) == 0 {
-		return "", errors.New("no result found")
-	}
-	return result[0], nil
+	return &StringArray{items: result}, nil
 }

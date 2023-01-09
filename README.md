@@ -15,32 +15,33 @@ dependencies {
 ## Usage
 ```kotlin
 val client: OkHttpClient = OkHttpClient.Builder()
-  .retryOnConnectionFailure(false)
-  .socketFactory(GliderSocketFactory("-forward tls://api.ipify.org/ -dialtimeout 10"))
-  .callTimeout(10, TimeUnit.SECONDS)
-  .dns {
-    val address = gliderandroid.Gliderandroid.resolve(
-        "-verbose -forward doh://1.1.1.1",
-        it,
-        "8.8.8.8",
-        53
-    )
-    arrayListOf(InetAddress.getByName(address))
-  }
-  .build()
+    .retryOnConnectionFailure(false)
+    .socketFactory(GliderSocketFactory("-verbose -forward tls://api.ipify.org/ -dialtimeout 10"))
+    .callTimeout(20, TimeUnit.SECONDS)
+    .dns {
+        val addresses = gliderandroid.Gliderandroid.resolve(
+            "-verbose -forward doh://1.1.1.1", // any proxy that supports DialUDP works
+            it,
+            "8.8.8.8",
+            53 // must be 53 when using doh://
+        ).toStringList()
+        println("addresses: ${addresses.joinToString(", ")}")
+        addresses.map { address -> InetAddress.getByName(address) }
+    }
+    .build()
 
 try {
-  val response = client.newCall(
-  Request.Builder()
-    .addHeader("Cache-Control", "no-cache")
-    .cacheControl(CacheControl.FORCE_NETWORK)
-    .url("http://api.ipify.org/")
-    .build()
-).execute().body.string()
+    val response = client.newCall(
+        Request.Builder()
+            .addHeader("Cache-Control", "no-cache")
+            .cacheControl(CacheControl.FORCE_NETWORK)
+            .url("http://api.ipify.org/")
+            .build()
+    ).execute().body.string()
 
-  println(response)
-} catch (e : Exception) { 
-  Log.e(TAG, "error: ${e.message}")
+    println(response)
+} catch (e: Exception) {
+    e.printStackTrace()
 }
 ```
 

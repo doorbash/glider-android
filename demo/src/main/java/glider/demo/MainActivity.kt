@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import gliderandroid.GliderSocketFactory
+import gliderandroid.toStringList
 import okhttp3.CacheControl
 import okhttp3.Dns
 import okhttp3.OkHttpClient
@@ -27,14 +28,14 @@ class MainActivity : AppCompatActivity() {
                 .socketFactory(GliderSocketFactory("-verbose -forward direct:// -dialtimeout 10"))
                 .callTimeout(20, TimeUnit.SECONDS)
                 .dns {
-                    val address = gliderandroid.Gliderandroid.resolve(
+                    val addresses = gliderandroid.Gliderandroid.resolve(
                         "-verbose -forward doh://1.1.1.1",
                         it,
                         "8.8.8.8",
                         53
-                    )
-                    println("address: $address")
-                    arrayListOf(InetAddress.getByName(address))
+                    ).toStringList()
+                    println("addresses: ${addresses.joinToString(", ")}")
+                    addresses.map { address -> InetAddress.getByName(address) }
                 }
                 .build()
 
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
                         .url("http://ip-api.com/json")
                         .build()
                 ).execute().body.string()
+
+                println(response)
 
                 val jsonObject = Gson().fromJson(response, JsonObject::class.java)
 
