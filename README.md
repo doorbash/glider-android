@@ -16,11 +16,11 @@ dependencies {
 ```kotlin
 val client: OkHttpClient = OkHttpClient.Builder()
     .retryOnConnectionFailure(false)
-    .socketFactory(GliderSocketFactory("-verbose -forward tls://api.ipify.org/ -dialtimeout 10"))
+    .socketFactory(GliderSocketFactory("-forward tls://api.ipify.org/ -dialtimeout 10"))
     .callTimeout(20, TimeUnit.SECONDS)
     .dns {
         val addresses = Gliderandroid.resolve(
-            "-verbose -forward doh://1.1.1.1", // any proxy that supports DialUDP works
+            "-forward doh://1.1.1.1", // any proxy that supports DialUDP works
             it,
             "8.8.8.8",
             53 // must be 53 when using doh://
